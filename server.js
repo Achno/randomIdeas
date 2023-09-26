@@ -3,7 +3,10 @@ const port = 5000;
 
 const app = express();
 
-//? create routes
+//! Body parser middleware
+
+app.use(express.json()); //allows you to send raw json to the server
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
   res.send('Welcome to the randomIdeas API');
