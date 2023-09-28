@@ -1,0 +1,11 @@
+// client/src/vite.config.js
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  root: 'src',
+  build: {
+    outDir: '../../public',
+  },
+
+  entry: 'main.js',
+});

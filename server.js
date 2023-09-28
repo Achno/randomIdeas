@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 require('dotenv').config();
 
@@ -10,6 +11,8 @@ connectDB();
 const app = express();
 
 //! Body parser middleware
+//Static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json()); //allows you to send raw json to the server
 app.use(express.urlencoded({ extended: false }));
