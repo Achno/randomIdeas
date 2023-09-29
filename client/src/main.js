@@ -1,5 +1,10 @@
 import './styles/style.css';
+import Modal from './components/Modal';
+import IdeaForm from './components/ideaForm';
+import IdeaList from './components/IdeaList';
 
-document.querySelector('#app').innerHTML = `
-    <h1>I FINALLY DID IT</h1>
-`;
+const ideaList = new IdeaList();
+ideaList.render();
+const modal = new Modal();
+const ideaForm = new IdeaForm();
+ideaForm.render();
