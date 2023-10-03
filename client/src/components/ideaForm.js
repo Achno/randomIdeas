@@ -1,16 +1,20 @@
+import ideasAPI from '../services/ideasAPI';
+import IdeaList from './IdeaList';
+
 class IdeaForm {
   constructor() {
     this.formModal = document.querySelector('#form-modal');
     // this.form = document.querySelector('#idea-form');
 
     // this.addEventListeners(); // ! error because we are selecting the #idea-form , but its not in the html we make it in render(); and form=NULL
+    this.IdeaList = new IdeaList();
   }
 
   addEventListeners() {
     this.form.addEventListener('submit', this.handleSubmit.bind(this));
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
 
     const idea = {
@@ -20,8 +24,11 @@ class IdeaForm {
       username: this.form.elements.username.value,
     };
 
-    console.log(idea);
+    //* Add idea to server
+    const newIdea = await ideasAPI.createIdea(idea);
 
+    //* Add idea to list
+    this.IdeaList.addIdeaToList(newIdea.data.data);
     //clear fields
     this.form.elements.text.value = '';
     this.form.elements.tag.value = '';
