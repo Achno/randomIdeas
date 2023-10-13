@@ -17,6 +17,19 @@ class IdeaForm {
   async handleSubmit(e) {
     e.preventDefault();
 
+    //*Form validation
+    if (
+      !this.form.elements.text.value ||
+      !this.form.elements.tag.value ||
+      !this.form.elements.username.value
+    ) {
+      alert('Please Enter all fields');
+      return;
+    }
+
+    //*Save user to local storage
+    localStorage.setItem('username', this.form.elements.username.value);
+
     const idea = {
       // this element has name="text"
       text: this.form.elements.text.value,
@@ -29,10 +42,12 @@ class IdeaForm {
 
     //* Add idea to list
     this.IdeaList.addIdeaToList(newIdea.data.data);
-    //clear fields
+    //*clear fields
     this.form.elements.text.value = '';
     this.form.elements.tag.value = '';
     this.form.elements.username.value = '';
+
+    this.render();
 
     //dispatch event to close the modal from modal.js
     document.dispatchEvent(new Event('closeModal'));
@@ -43,7 +58,11 @@ class IdeaForm {
         <form id="idea-form">
         <div class="form-control">
           <label for="idea-text">Enter a Username</label>
-          <input type="text" name="username" id="username" />
+          <input type="text" name="username" id="username" value="${
+            localStorage.getItem('username')
+              ? localStorage.getItem('username')
+              : ''
+          }" />
         </div>
         <div class="form-control">
           <label for="idea-text">What's Your Idea?</label>
